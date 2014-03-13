@@ -134,10 +134,13 @@ object Lists {
   }
 
   def randomSelect[T](num: Int, xs: List[T]): List[T] = {
-    scala.util.Random.shuffle(xs).take(num)
+    randomPermute(xs).take(num)
   }
 
   def lotto(count: Int, max: Int): List[Int] = randomSelect(count, range(1, max))
 
+  def randomPermute[T](xs: List[T]): List[T] = {
+    scala.util.Random.shuffle(xs)
+  }
 
 }

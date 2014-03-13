@@ -131,34 +131,44 @@ class ListsSpec extends FlatSpec with ShouldMatchers {
     val in = List('a, 'b, 'c, 'd, 'f, 'g, 'h)
     val res = randomSelect(3, in)
     res.length should be(3)
-    in.foreach{
+    in.foreach {
       in should contain(_)
     }
   }
 
-  it should "Lotto: Draw N different random numbers from the set 1..M." in{
+  it should "Lotto: Draw N different random numbers from the set 1..M." in {
     val count = 6
     val max = 49
     val res = lotto(count, max)
     res.length should be(count)
-    res.foreach{_ should be <= max}
+    res.foreach {
+      _ should be <= max
+    }
   }
 
+  it should "Generate a random permutation of the elements of a list." in {
+    val xs = List('a, 'b, 'c, 'd, 'e, 'f)
+    val random = randomPermute(xs)
+    random.toSet should be(xs.toSet)
+    random should not equal xs
+  }
+
+  /**
+   * In how many ways can a committee of 3 be chosen from a group of 12
+   * people? We all know that there are C(12,3) = 220 possibilities
+   * (C(N,K) denotes the well-known binomial coefficient). For pure
+   * mathematicians, this result may be great. But we want to really
+   * generate all the possibilities.
+scala> combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
+res0: List[List[Symbol]] = List(List('a, 'b, 'c), List('a, 'b, 'd), List('a, 'b, 'e), ...
+   */
+  //  it should "Generate the combinations of K distinct objects chosen from the N elements of a list." in {
+  //  }
 
   /*
 
-P25 (*) Generate a random permutation of the elements of a list.
-Hint: Use the solution of problem P23.
-Example:
 
-scala> randomPermute(List('a, 'b, 'c, 'd, 'e, 'f))
-res0: List[Symbol] = List('b, 'a, 'd, 'c, 'e, 'f)
-P26 (**) Generate the combinations of K distinct objects chosen from the N elements of a list.
-In how many ways can a committee of 3 be chosen from a group of 12 people? We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficient). For pure mathematicians, this result may be great. But we want to really generate all the possibilities.
-Example:
 
-scala> combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
-res0: List[List[Symbol]] = List(List('a, 'b, 'c), List('a, 'b, 'd), List('a, 'b, 'e), ...
 P27 (**) Group the elements of a set into disjoint subsets.
 a) In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3 and 4 persons? Write a function that generates all the possibilities.
 Example:
